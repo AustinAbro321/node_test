@@ -41,19 +41,19 @@ pipeline {
                   sh 'npm install-test'
                   sh 'docker build . -t node_test_image'
                   sh 'docker run -d -p 3000:3000 --name test_node_app node_test_image'
-                  
+
                 }
         }
   }
    
     post { 
         success {
-      hangoutsNotify message: "Chris Gallivan:::SUCCESS",token: "8TAhr5dP97wKtVlaaWya6Hn5l", threadByJob: true    
+      hangoutsNotify message: "Austin Abro:::SUCCESS",token: "8TAhr5dP97wKtVlaaWya6Hn5l", threadByJob: true    
 		
         }
     
         failure {
-	  	hangoutsNotify message: "Chris Gallivan:::FAILURE",token: "8TAhr5dP97wKtVlaaWya6Hn5l", threadByJob: true
+	  	hangoutsNotify message: "Austin Abro:::FAILURE",token: "8TAhr5dP97wKtVlaaWya6Hn5l", threadByJob: true
         }
     }
 }
