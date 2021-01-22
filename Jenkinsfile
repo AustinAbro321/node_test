@@ -40,7 +40,7 @@ pipeline {
                   echo 'Building Node app...'
                   sh 'npm install-test'
                   sh 'docker build . -t node_test_image'
-                  sh 'docker run -d -p 8000:8000 --name test_node_app node_test_image'
+                  sh 'docker run -d -p 3000:3000 --name test_node_app node_test_image'
                 }
         }
   }
