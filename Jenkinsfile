@@ -32,8 +32,8 @@ pipeline {
     stages {
         stage('Build Node App') {
             steps {
-                echo 'Building Node app...'
-                sh 'node install'
+                  echo 'Building Node app...'
+                  sh 'npm install-test'
                 }
         }
   }
