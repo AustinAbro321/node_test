@@ -34,7 +34,6 @@ pipeline {
             steps {
                 echo 'Building Node app...'
                 sh 'node install'
-
                 }
         }
   }
