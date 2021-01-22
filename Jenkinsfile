@@ -30,10 +30,17 @@ pipeline {
    }
     agent any
     stages {
+        stage('stop'){
+            steps{
+                sh 'docker rm -f test_node_app && echo "container removed" || echo "container does not exist"'                
+            }
+        }
         stage('Build Node App') {
             steps {
                   echo 'Building Node app...'
                   sh 'npm install-test'
+                  sh 'docker build . -t node_test_image'
+                  sh 'docker run -d -p 8000:8000 --name test_node_app node_test_image'
                 }
         }
   }
