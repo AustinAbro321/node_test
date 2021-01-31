@@ -25,7 +25,7 @@ app.get("/getGreeting", async (req,res) =>{
     try {
         const greetingsInsert = 'select * from greetings ORDER BY RANDOM() limit 1 ';
         const newGreeting = await pool.query(greetingsInsert);
-        res.json(newGreeting.rows);
+        res.json(newGreeting.rows[0].greeting);
     } catch (error) {
         console.log("heres an error", error);
     }
