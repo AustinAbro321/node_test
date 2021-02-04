@@ -1,7 +1,7 @@
 import React, { Fragment, useState } from 'react';
 
 const Greeting = () => {
-    const [greeting,setGreeting] = useState("whats up");
+    const [greeting,setGreeting] = useState("");
 
     const onSubmitForm = async e =>{
         e.preventDefault();
@@ -11,6 +11,7 @@ const Greeting = () => {
                 body: JSON.stringify({ greeting }),
                 headers: { 'Content-Type': 'application/json' },
             })
+            setGreeting("")
             console.log(response)
         } catch (error) {
             console.error(error);

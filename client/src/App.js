@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 import { Fragment } from 'react';
 
@@ -8,7 +7,7 @@ import RandomGreeting from './components/RandomGreeting'
 function App() {
   return (
     <Fragment>
-      <div class="container">
+      <div className="container">
         <Greeting />
         <RandomGreeting/>
       </div>

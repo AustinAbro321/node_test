@@ -1,0 +1,32 @@
+version: "3"
+services:
+  react-app:
+    build: ./client
+    image: austinabro321/react_greeting
+    ports:
+      - 5000:5000
+    networks:
+      - greeting_app
+  node_api:
+    build: ./server
+    image: austinabro321/node_greeting
+    ports:
+      - 3000:3000
+    depends_on: 
+      - postgres
+    networks:
+      - greeting_app
+  postgres:
+    image: postgres:13.1-alpine
+    ports: 
+      - 5432:5432
+    volumes: 
+      - ./postgres-data:/var/lib/postgresql/data
+    networks:
+      - greeting_app
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+networks:
+  greeting_app:
+    driver: bridge

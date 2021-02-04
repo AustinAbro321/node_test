@@ -1,6 +1,7 @@
 import React, { Fragment, useState } from 'react';
 
 const RandomGreeting = () => {
+    
     const [greeting,setGreeting] = useState('');
 
     const onClickRandomGreeting = async() =>{
@@ -14,10 +15,13 @@ const RandomGreeting = () => {
         } catch (error) {
             console.error(error);
         }
-    }
+    }    
+
     return (
     <Fragment>
-        <button className = "text-center mt-5 btn" onClick={onClickRandomGreeting}>Pick Random Greeting</button>
+        <div className = "text-center mt-5">
+            <button className = "text-center mt-3 btn" onClick={onClickRandomGreeting}>Pick Random Greeting</button>
+        </div>
         <h2 className = "text-center">{greeting}</h2>
     </Fragment>)
 }
