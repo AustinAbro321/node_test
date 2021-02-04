@@ -6,7 +6,7 @@ const RandomGreeting = () => {
 
     const onClickRandomGreeting = async() =>{
         try {
-            const response = await fetch('http://localhost:3000/getGreeting',{
+            const response = await fetch('http://localhost:4000/getGreeting',{
                 method: 'get',                
             }).then(function(response){    
                 return response.json();
