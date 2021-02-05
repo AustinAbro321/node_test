@@ -42,12 +42,12 @@ pipeline {
                   sh 'docker-compose up --build -d'
                 }
         }
-        stage('Send image to docker hub') {
+        // stage('Send image to docker hub') {
 
-        }
+        // }
   }
    
-    post { 
+    //post { 
         // success {
         // hangoutsNotify message: "Austin Abro:::SUCCESS",token: "8TAhr5dP97wKtVlaaWya6Hn5l", threadByJob: true    
 		
@@ -56,5 +56,5 @@ pipeline {
         // failure {
 	  	  // hangoutsNotify message: "Austin Abro:::FAILURE",token: "8TAhr5dP97wKtVlaaWya6Hn5l", threadByJob: true
         // }
-    }
+    //}
 }
