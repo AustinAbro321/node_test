@@ -2,32 +2,32 @@ def COLOR_MAP = [
     'SUCCESS': 'good', 
     'FAILURE': 'danger',
 ]
-def loadValuesYaml(x){
-  def valuesYaml = readYaml (file: './pipeline.yml')
-  return valuesYaml[x];
-}
+// def loadValuesYaml(x){
+//   def valuesYaml = readYaml (file: './pipeline.yml')
+//   return valuesYaml[x];
+// }
 
 pipeline {
-  environment {
-  //credentials
-	    dockerHubCredential = loadValuesYaml('dockerHubCredential')
-            awsCredential = loadValuesYaml('awsCredential')
+  // environment {
+  // //credentials
+	//     dockerHubCredential = loadValuesYaml('dockerHubCredential')
+  //           awsCredential = loadValuesYaml('awsCredential')
 	    
-	    //docker config
-	    imageName = loadValuesYaml('imageName')
-	    slackChannel = loadValuesYaml('slackChannel')
-	    dockerImage = ''
+	//     //docker config
+	//     imageName = loadValuesYaml('imageName')
+	//     slackChannel = loadValuesYaml('slackChannel')
+	//     dockerImage = ''
 	    
-	    //s3 config
-            backendFile = loadValuesYaml('backendFile')
-            backendPath = loadValuesYaml('backendPath')
+	//     //s3 config
+  //           backendFile = loadValuesYaml('backendFile')
+  //           backendPath = loadValuesYaml('backendPath')
 	    
-	    //additional external feedback
-	    successAction = loadValuesYaml('successAction')
-	    failureAction = loadValuesYaml('failureAction')  
-	    app_url = ''      
+	//     //additional external feedback
+	//     successAction = loadValuesYaml('successAction')
+	//     failureAction = loadValuesYaml('failureAction')  
+	//     app_url = ''      
 	    
-   }
+  //  }
     agent any
     stages {
         stage('stop'){
