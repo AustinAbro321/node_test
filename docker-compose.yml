@@ -24,6 +24,7 @@ services:
       - /dbdata:/var/lib/postgresql/data
     networks:
       - greeting_app
+    restart: always
     environment:
       POSTGRES_USER: $psuser
       POSTGRES_PASSWORD: $password
