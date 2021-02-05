@@ -39,7 +39,7 @@ pipeline {
         stage('Build Node App') {
             steps {
                   echo 'Composing node app'
-                  docker-compose up --build -d
+                  sh 'docker-compose up --build -d'
                 }
         }
         stage('Send image to docker hub') {
