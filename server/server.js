@@ -16,7 +16,7 @@ app.post("/newGreeting", async (req,res) =>{
         const greetingsInsert = 'insert into greetings (greeting) values ($1) returning *';
         const newGreeting = await pool.query(greetingsInsert, [greeting]);
         res.json(newGreeting.rows);
-    } catch (error) {
+    } catch (error) {        
         console.log("heres an error", error);
     }
 });
@@ -27,6 +27,7 @@ app.get("/getGreeting", async (req,res) =>{
         const newGreeting = await pool.query(greetingsInsert);
         res.json(newGreeting.rows[0].greeting);
     } catch (error) {
+        res.json("DB Issue")
         console.log("heres an error", error);
     }
 });

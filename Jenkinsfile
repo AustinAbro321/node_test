@@ -32,35 +32,29 @@ pipeline {
     stages {
         stage('stop'){
             steps{
-                sh 'docker rm -f test_node_app && echo "container removed" || echo "container does not exist"'                
+                //sh 'docker rm -f test_node_app && echo "container removed" || echo "container does not exist"'                
+                sh 'docker-compose down && echo "container removed" || echo "container does not exist"'                
             }
         }
         stage('Build Node App') {
             steps {
-                  echo 'Building Node app...'
-                  sh 'npm install-test'
-                  sh 'docker build . -t node_test_image'
-                  sh 'docker run -d -p 3000:3000 --name test_node_app node_test_image'
+                  echo 'Composing node app'
+                  docker-compose up --build -d
                 }
         }
         stage('Send image to docker hub') {
-            steps {
-                  echo 'Building Node app...'
-                  sh 'npm install-test'
-                  sh 'docker build . -t node_test_image'
-                  sh 'docker run -d -p 3000:3000 --name test_node_app node_test_image'
-                }
+
         }
   }
    
     post { 
-        success {
-      hangoutsNotify message: "Austin Abro:::SUCCESS",token: "8TAhr5dP97wKtVlaaWya6Hn5l", threadByJob: true    
+        // success {
+        // hangoutsNotify message: "Austin Abro:::SUCCESS",token: "8TAhr5dP97wKtVlaaWya6Hn5l", threadByJob: true    
 		
-        }
+        // }
     
-        failure {
-	  	hangoutsNotify message: "Austin Abro:::FAILURE",token: "8TAhr5dP97wKtVlaaWya6Hn5l", threadByJob: true
-        }
+        // failure {
+	  	  // hangoutsNotify message: "Austin Abro:::FAILURE",token: "8TAhr5dP97wKtVlaaWya6Hn5l", threadByJob: true
+        // }
     }
 }

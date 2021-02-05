@@ -6,7 +6,7 @@ const RandomGreeting = () => {
 
     const onClickRandomGreeting = async() =>{
         try {
-            const response = await fetch('http://localhost:4000/getGreeting',{
+            const response = await fetch('http://localhost:4000/getGreeting',{            
                 method: 'get',                
             }).then(function(response){    
                 return response.json();
@@ -22,7 +22,7 @@ const RandomGreeting = () => {
         <div className = "text-center mt-5">
             <button className = "text-center mt-3 btn" onClick={onClickRandomGreeting}>Pick Random Greeting</button>
         </div>
-        <h2 className = "text-center">{greeting}</h2>
+        <h2 className = "display-1 text-center mt-3">{greeting}</h2>
     </Fragment>)
 }
 
