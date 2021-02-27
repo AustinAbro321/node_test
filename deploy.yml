@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: greeting
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: greeting_app_label
+  template:
+    metadata:
+      labels:
+        app: greeting_app_label
+    spec:
+      containers:
+      - name: myapp
+        image: austinabro321/node_greeting
+        imagePullPolicy: Always
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 3000
