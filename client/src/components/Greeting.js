@@ -6,7 +6,7 @@ const Greeting = () => {
     const onSubmitForm = async e =>{
         e.preventDefault();
         try {
-            const response = await fetch("http://localhost:3000/newGreeting",{
+            const response = await fetch("http://localhost:4000/newGreeting",{                
                 method: 'POST',                
                 body: JSON.stringify({ greeting }),
                 headers: { 'Content-Type': 'application/json' },

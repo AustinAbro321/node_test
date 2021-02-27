@@ -1,6 +1,6 @@
 version: "3"
 services:
-  react-app:
+  react_app:
     build: ./client
     image: austinabro321/react_greeting
     ports:
@@ -21,12 +21,15 @@ services:
     ports: 
       - 5432:5432
     volumes: 
-      - ./postgres-data:/var/lib/postgresql/data
+      - /dbdata:/var/lib/postgresql/data
     networks:
       - greeting_app
+    restart: always
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: password
+      POSTGRES_USER: $psuser
+      POSTGRES_PASSWORD: $password
+volumes:
+  dbdata:    
 networks:
   greeting_app:
     driver: bridge
