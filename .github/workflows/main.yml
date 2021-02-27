@@ -56,7 +56,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
-          context: ./server
+          file: /server/dockerfile
           tags: austinabro321/node_greeting
       -
         name: Image digest
