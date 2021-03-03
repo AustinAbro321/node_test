@@ -68,7 +68,7 @@ jobs:
       name: env
 
     env:
-      AWS_REGION: eu-east-2
+      AWS_REGION: us-east-2
       EKS_CLUSTER_NAME: node-test
 
     steps:
