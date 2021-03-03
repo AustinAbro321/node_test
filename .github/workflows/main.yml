@@ -110,15 +110,6 @@ jobs:
         IMAGE_NAME: ${{ steps.build-image.outputs.image }}
       run: |
         kubectl apply -f $K8S_YAML_DIR/svc-load-balancer.yml
+        kubectl apply -f $K8S_YAML_DIR/deploy.yml
         kubectl get services -o wide
-        # # Setup kustomize
-        # cd $K8S_YAML_DIR
-        # curl -s -o kustomize --location https://github.com/kubernetes-sigs/kustomize/releases/download/v3.1.0/kustomize_3.1.0_linux_amd64
-        # chmod u+x ./kustomize
-        # ./kustomize edit set image example-eks=$IMAGE_NAME
-        # ./kustomize build . | kubectl apply -f -
-        # # Verify deployment
-        # kubectl rollout status deployment/aws-example-octodex
-        # # List Public IP of cluster
-        # kubectl get services -o wide
-        # kubectl get ingress
+        kubectl get pods
