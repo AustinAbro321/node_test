@@ -106,7 +106,7 @@ jobs:
     - name: Deploy k8s yaml
       id: deploy-k8s-yaml
       env:
-        K8S_YAML_DIR: ./manifests 
+        K8S_YAML_DIR: ./eks-k8s 
         IMAGE_NAME: ${{ steps.build-image.outputs.image }}
       run: |
         # Setup kustomize
