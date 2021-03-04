@@ -14,11 +14,11 @@ spec:
     spec:
       containers:
       - name: myapp
-        image: austinabro321/node_greeting:latest
+        image: example-image
         imagePullPolicy: Always
         resources:
           limits:
-            memory: "128Mi"
-            cpu: "500m"
+            memory: "64Mi"
+            cpu: "250m"
         ports:
         - containerPort: 3000

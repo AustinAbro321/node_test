@@ -88,8 +88,9 @@ jobs:
       env:
         K8S_YAML_DIR: ./eks-k8s 
         IMAGE_NAME: ${{ steps.build-image.outputs.image }}
-      run: |
+      run: |        
         kubectl apply -f $K8S_YAML_DIR/svc-load-balancer.yml
         kubectl apply -f $K8S_YAML_DIR/deploy.yml
+        kubectl set image deployments.apps/greeting myapp=$IMAGE_NAME
         kubectl get services -o wide
         kubectl get pods
