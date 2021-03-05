@@ -87,10 +87,10 @@ jobs:
         docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG ./server/.
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
         echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
-    - name: Setup kubeconfig
-      id: setup-kubeconfig
-      run: |
-        aws eks --region $AWS_REGION update-kubeconfig --name $EKS_CLUSTER_NAME
+    # - name: Setup kubeconfig
+    #   id: setup-kubeconfig
+    #   run: |
+    #     aws eks --region $AWS_REGION update-kubeconfig --name $EKS_CLUSTER_NAME
     - name: Deploy k8s yaml
       id: deploy-k8s-yaml
       env:
@@ -101,6 +101,7 @@ jobs:
         sudo mv /tmp/eksctl /usr/local/bin
         eksctl create cluster --name $EKS_CLUSTER_NAME --region us-east-2 \
         --nodegroup-name linux-nodes --node-type t2.micro --nodes 2 && echo "creating cluster" || echo  "cluster already exists"
+        aws eks --region $AWS_REGION update-kubeconfig --name $EKS_CLUSTER_NAME
         kubectl apply -f $K8S_YAML_DIR/svc-load-balancer.yml
         kubectl apply -f $K8S_YAML_DIR/deploy.yml
         kubectl set image deployments.apps/greeting myapp=$IMAGE_NAME
