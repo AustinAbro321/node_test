@@ -49,7 +49,7 @@ jobs:
 
     env:
       AWS_REGION: us-east-2
-      EKS_CLUSTER_NAME: node_test
+      EKS_CLUSTER_NAME: node-test
 
     steps:
     - name: Checkout
