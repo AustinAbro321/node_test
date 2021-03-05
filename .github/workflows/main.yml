@@ -49,7 +49,7 @@ jobs:
 
     env:
       AWS_REGION: us-east-2
-      EKS_CLUSTER_NAME: test-cluster 
+      EKS_CLUSTER_NAME: node_test
 
     steps:
     - name: Checkout
@@ -65,6 +65,14 @@ jobs:
     - name: Login to Amazon ECR
       id: login-ecr
       uses: aws-actions/amazon-ecr-login@v1
+
+    - name: provision cluster
+      id: provision cluster
+      run: |
+        curl --silent --location "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp
+        sudo mv /tmp/eksctl /usr/local/bin
+        eksctl create cluster --name $EKS_CLUSTER_NAME --region us-east-2 \
+        --nodegroup-name linux-nodes --node-type t2.micro --nodes 2 && echo "creating cluster" || echo  "cluster already exists"
 
     - name: Build, tag, and push image to Amazon ECR
       id: build-image
@@ -88,11 +96,7 @@ jobs:
       env:
         K8S_YAML_DIR: ./eks-k8s 
         IMAGE_NAME: ${{ steps.build-image.outputs.image }}
-      run: |        
-        curl --silent --location "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp
-        sudo mv /tmp/eksctl /usr/local/bin
-        eksctl create cluster --name node-test --region us-east-2 \
-        --nodegroup-name linux-nodes --node-type t2.micro --nodes 2 && echo "creating cluster" || echo  "cluster already exists"
+      run: |                
         kubectl apply -f $K8S_YAML_DIR/svc-load-balancer.yml
         kubectl apply -f $K8S_YAML_DIR/deploy.yml
         kubectl set image deployments.apps/greeting myapp=$IMAGE_NAME
