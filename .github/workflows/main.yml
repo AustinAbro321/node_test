@@ -105,5 +105,6 @@ jobs:
         kubectl apply -f $K8S_YAML_DIR/svc-load-balancer.yml
         kubectl apply -f $K8S_YAML_DIR/deploy.yml
         kubectl set image deployments.apps/greeting myapp=$IMAGE_NAME
+        echo $IMAGE_NAME
         kubectl get services -o wide
         kubectl get pods
