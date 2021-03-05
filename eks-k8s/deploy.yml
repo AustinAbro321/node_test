@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: myapp
-        image: example-image
+        image: austinabro321/node_greeting
         imagePullPolicy: Always
         resources:
           limits:
