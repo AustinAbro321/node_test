@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: myapp
-        image: austinabro321/node_greeting
+        image: example-eks
         imagePullPolicy: Always
         resources:
           limits:

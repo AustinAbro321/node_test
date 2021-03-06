@@ -41,12 +41,29 @@ jobs:
       -
         name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
+
+  create-cluster:
+    name: create-cluster
+    environment:
+      name: env
+    runs-on: ubuntu-latest
+    env:
+      AWS_REGION: us-east-2
+      EKS_CLUSTER_NAME: node-test    
+    steps:
+      - name: create-cluster
+        run: |
+          curl --silent --location "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp
+          sudo mv /tmp/eksctl /usr/local/bin
+          eksctl create cluster --name $EKS_CLUSTER_NAME --region us-east-2 \
+          --nodegroup-name linux-nodes --node-type t2.micro --nodes 2 && echo "creating cluster" || echo  "cluster already exists"          
+
   deploy:
     name: Deploy
     runs-on: ubuntu-latest
     environment:
       name: env
-
+    needs: create-cluster
     env:
       AWS_REGION: us-east-2
       EKS_CLUSTER_NAME: node-test
@@ -91,6 +108,6 @@ jobs:
       run: |        
         kubectl apply -f $K8S_YAML_DIR/svc-load-balancer.yml
         kubectl apply -f $K8S_YAML_DIR/deploy.yml
+        kubectl set image deployments.apps/greeting myapp=$IMAGE_NAME
         kubectl get services -o wide
         kubectl get pods
-#  kubectl set image deployments.apps/greeting myapp=$IMAGE_NAME
