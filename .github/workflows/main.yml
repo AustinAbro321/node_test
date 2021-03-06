@@ -51,12 +51,21 @@ jobs:
       AWS_REGION: us-east-2
       EKS_CLUSTER_NAME: node-test    
     steps:
-      - name: create-cluster
-        run: |
-          curl --silent --location "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp
-          sudo mv /tmp/eksctl /usr/local/bin
-          eksctl create cluster --name $EKS_CLUSTER_NAME --region us-east-2 \
-          --nodegroup-name linux-nodes --node-type t2.micro --nodes 2 && echo "creating cluster" || echo  "cluster already exists"          
+    - name: Checkout
+      uses: actions/checkout@v1
+
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ${{ env.AWS_REGION }}    
+    - name: create-cluster
+      run: |
+        curl --silent --location "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp
+        sudo mv /tmp/eksctl /usr/local/bin
+        eksctl create cluster --name $EKS_CLUSTER_NAME --region us-east-2 \
+        --nodegroup-name linux-nodes --node-type t2.micro --nodes 2 && echo "creating cluster" || echo  "cluster already exists"          
 
   deploy:
     name: Deploy
