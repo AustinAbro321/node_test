@@ -29,10 +29,10 @@ jobs:
         id: fmt
         run: |
           terraform fmt -check
-          echo pwd
+          pwd
       - name: Terraform Apply
         run: | 
-          echo pwd
+          pwd
           terraform apply -auto-approve
   docker:
     name: "docker"
