@@ -27,9 +27,13 @@ jobs:
         run: cd terraform
       - name: Terraform Format
         id: fmt
-        run: terraform fmt -check
+        run: |
+          terraform fmt -check
+          echo pwd
       - name: Terraform Apply
-        run: terraform apply -auto-approve
+        run: | 
+          echo pwd
+          terraform apply -auto-approve
   docker:
     name: "docker"
     runs-on: ubuntu-latest
