@@ -1,3 +1,5 @@
 node_modules
 *eslintcache
 *postgres-data/
+*.terraform*
+*terraform.tfstate
