@@ -36,11 +36,10 @@ jobs:
         id: apply
         working-directory: ./terraform
         run: |
-          export AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}
-          export AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          terraform destroy -auto-approve     
+         terraform apply -auto-approve     
+        # export AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}
+        # export AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}         
         continue-on-error: true
-        #echo "::set-output name=kubeconfig::terraform output kubeconfig"
       
   docker:
     name: "docker"
