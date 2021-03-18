@@ -6,6 +6,14 @@ provider "aws" {
   region = var.aws_region
 }
 
+backend "remote" {
+  organization = "AustinAbro321"
+
+    workspaces {
+      name = "node_test"
+    }
+}
+
 data "aws_availability_zones" "available" {}
 
 # Not required: currently used in conjunction with using
