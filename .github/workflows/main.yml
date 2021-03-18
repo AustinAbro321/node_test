@@ -14,7 +14,7 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   terraform:
-    name: 'Terraform'
+    name: "terraform"
     runs-on: ubuntu-latest
     # outputs:
     #   kubeconfig:  ${{ steps.apply.outputs.kubeconfig }}
@@ -38,7 +38,7 @@ jobs:
         run: |
           export AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}
           export AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        #terraform apply -auto-approve     
+          terraform apply -auto-approve     
         #echo "::set-output name=kubeconfig::terraform output kubeconfig"
       
   docker:
@@ -46,12 +46,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    # - name: docker login
-    #   env:
-    #     DOCKER_USER: ${{ secrets.DOCKER_USERNAME }}   
-    #     DOCKER_PASSWORD: ${{ secrets.DOCKERHUB_TOKEN }}  
-      # run: |
-      #   docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
     - name: Login to DockerHub
       uses: docker/login-action@v1 
       with:
@@ -64,55 +58,11 @@ jobs:
     - name: docker push
       run: |
         docker push austinabro321/node_greeting:latest
-    # steps:
-    #   - uses: actions/checkout@v2
-    #     name: Check out code
-
-    #   - uses: mr-smithers-excellent/docker-build-push@v5
-    #     name: Build & push Docker image
-    #     with:
-    #       image: austinabro321/node_greeting
-    #       tags: latest
-    #       registry: docker.io
-    #       dockerfile: server/Dockerfile
-    #       username: ${{ secrets.DOCKER_USERNAME }}
-    #       password: ${{ secrets.DOCKERHUB_TOKEN }}
-    # steps:
-    #   -
-    #     name: Set up QEMU
-    #     uses: docker/setup-qemu-action@v1
-    #   -
-    #     name: Set up Docker Buildx
-    #     uses: docker/setup-buildx-action@v1
-    #   -
-    #     name: Login to DockerHub
-    #     uses: docker/login-action@v1 
-    #     with:
-    #       username: ${{ secrets.DOCKERHUB_USERNAME }}
-    #       password: ${{ secrets.DOCKERHUB_TOKEN }}
-    #   -
-    #     name: Build and push
-    #     id: docker_build
-    #     uses: docker/build-push-action@v2
-    #     with:
-    #       push: true
-    #       directory: server
-    #       #file: /server/dockerfile
-    #       tags: austinabro321/node_greeting:latest
-      # - name: build and push
-      #   id: build
-      #   working-directory: ./server
-      #   run: |
-      #     docker build . -t austinabro321/node_greeting:latest
-      #     docker push austinabro321/node_greeting:latest
-      # -
-      #   name: Image digest
-      #   run: echo ${{ steps.docker_build.outputs.digest }}
 
   deploy:
     name: deploy
     runs-on: ubuntu-latest
-    needs: [docker,Terraform]
+    needs: [docker,terraform]
     env:
       AWS_REGION: us-east-2
       EKS_CLUSTER_NAME: terraform-eks-demo-cluster
@@ -135,10 +85,8 @@ jobs:
         id: deploy-k8s-yaml
         env:
           K8S_YAML_DIR: ./eks-k8s 
-          IMAGE_NAME: ${{ steps.build-image.outputs.image }}
         run: |        
           kubectl apply -f $K8S_YAML_DIR/svc-load-balancer.yml
           kubectl apply -f $K8S_YAML_DIR/deploy.yml
           kubectl get services -o wide
-          kubectl get pods        
-#          kubectl set image deployments.apps/greeting myapp=$IMAGE_NAME
+          kubectl get pods    
