@@ -1,18 +1,19 @@
 terraform {
   required_version = ">= 0.12"
+  backend "remote" {
+  organization = "AustinAbro321"
+
+    workspaces {
+      name = "node_test"
+    }
+  }
 }
 
 provider "aws" {
   region = var.aws_region
 }
 
-backend "remote" {
-  organization = "AustinAbro321"
 
-    workspaces {
-      name = "node_test"
-    }
-}
 
 data "aws_availability_zones" "available" {}
 

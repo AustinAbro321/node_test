@@ -3,4 +3,4 @@ node_modules
 *postgres-data/
 *.terraform*
 *terraform.tfstate*
-
+terraformpassword.txt
