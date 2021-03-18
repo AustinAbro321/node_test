@@ -12,12 +12,10 @@ If run from kubernetes using workflow:
 docker-compose --build up. Yes that's it :)
 
 # Run on AWS with kubernetes: 
-    1. Create personal fork of repo. You will need to change actions code most likely, and execute the workflow
-    2. Create an account with AWS. You can set up roles with IAM, however I am just using admin since it's my account. (This wouldn't fly in production). You then need to get your AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY and store them as secrets in the repo
-    3. Download the cli for aws and put in your credentials. 
-    4. Download the cli eksctl, this allows you to create k8s clusters from the command line. This takes almost 20 minutes! If it feels like its not working don't fret 
-    5. Create a cluster. Example command below. The example cluster is called test-cluster and creates 2 linux t2.micro ec2 instances.eksctl create cluster --name test-cluster --region us-east-2 --nodegroup-name linux-nodes --node-type t2.micro --nodes 2. Replace the values of AWS_REGION and EKS_CLUSTER_NAME in your workflow depending on the values you choose
-    6. Create an ECR repository to store your images. ex: aws ecr create-repository --repository-name example-eks --region us-east-2`. Replace the value of `ECR_REPOSITORY` in the workflow below with your repository's name if you use something other than `example-eks`.
+    1. Create personal fork of repo.
+    2. Create an <a href="https://aws.amazon.com/account/">AWS account</a>
+    3. Create a <a href="https://app.terraform.io">Terraform Cloud account</a>
+    4. 
 
 # Clean up! The environment it costs a few dollars a day!
 AWS already has a nice guide on how to clean up just follow this exactly: https://docs.aws.amazon.com/eks/latest/userguide/delete-cluster.html
