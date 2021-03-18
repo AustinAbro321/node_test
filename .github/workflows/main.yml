@@ -52,6 +52,7 @@ jobs:
         password: ${{ secrets.DOCKERHUB_TOKEN }}
 
     - name: docker build nodejs
+      id: build-node
       run: |
         docker build ./server -t austinabro321/node_greeting:latest
     - name: docker push
