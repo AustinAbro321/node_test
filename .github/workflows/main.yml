@@ -57,20 +57,21 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      # -
-      #   name: Build and push
-      #   id: docker_build
-      #   uses: docker/build-push-action@v2
-      #   with:
-      #     push: true
-      #     file: /server/dockerfile
-      #     tags: austinabro321/node_greeting:latest
-      - name: build and push
-        id: build
-        working-directory: ./server
-        run: |
-          docker build . -t austinabro321/node_greeting:latest
-          docker push austinabro321/node_greeting:latest
+      -
+        name: Build and push
+        id: docker_build
+        uses: docker/build-push-action@v2
+        with:
+          push: true
+          context: ./server
+          #file: /server/dockerfile
+          tags: austinabro321/node_greeting:latest
+      # - name: build and push
+      #   id: build
+      #   working-directory: ./server
+      #   run: |
+      #     docker build . -t austinabro321/node_greeting:latest
+      #     docker push austinabro321/node_greeting:latest
       # -
       #   name: Image digest
       #   run: echo ${{ steps.docker_build.outputs.digest }}
