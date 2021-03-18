@@ -45,18 +45,32 @@ jobs:
     name: "docker"
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-        name: Check out code
+    - uses: actions/checkout@v2
+    - name: docker login
+      env:
+        DOCKER_USER: ${{ secrets.DOCKER_USERNAME }}   
+        DOCKER_PASSWORD: ${{ secrets.DOCKERHUB_TOKEN }}  
+      run: |
+        docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+    - name: docker build nodejs
+      run: |
+        docker build ./server -t austinabro321/node_greeting:latest
+    - name: docker push
+      run: |
+        docker push austinabro321/node_greeting:latest
+    # steps:
+    #   - uses: actions/checkout@v2
+    #     name: Check out code
 
-      - uses: mr-smithers-excellent/docker-build-push@v5
-        name: Build & push Docker image
-        with:
-          image: austinabro321/node_greeting
-          tags: latest
-          registry: docker.io
-          dockerfile: server/Dockerfile
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
+    #   - uses: mr-smithers-excellent/docker-build-push@v5
+    #     name: Build & push Docker image
+    #     with:
+    #       image: austinabro321/node_greeting
+    #       tags: latest
+    #       registry: docker.io
+    #       dockerfile: server/Dockerfile
+    #       username: ${{ secrets.DOCKER_USERNAME }}
+    #       password: ${{ secrets.DOCKERHUB_TOKEN }}
     # steps:
     #   -
     #     name: Set up QEMU
