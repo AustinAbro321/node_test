@@ -5,7 +5,7 @@ FROM node:12 as build-test
 WORKDIR /app
 
 #install dependencies
-COPY package*.json ./
+COPY /server/package*.json ./
 
 RUN npm install
 
@@ -20,7 +20,7 @@ FROM node:12-alpine as run
 WORKDIR /app
 
 #install dependencies
-COPY package*.json ./
+COPY /server/package*.json ./
 
 RUN npm install
 
