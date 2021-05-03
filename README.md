@@ -1,15 +1,15 @@
 # What is this application
 This is an example application made to show off automated building and testing using docker and kubernetes. 
 # What does this application do
-If run from docker-compose: 
+If run from docker-compose: <br/>
     Front end which gives a simple greeting and allows users to post greeting
     Backend which recieves and creates greeting from APIs, also /url returns a json.   
     Entire build is automatically tested<br/>
-If run from kubernetes using github actions:    
-    Automated deployment on commit to main with github actions
-    Pushes docker image of backend to dockerhub. Spins up K8s cluster using terraform and AWS
+If run from kubernetes using github actions:<br/>
+    Automated deployment on commit to main with github actions.
+    Pushes docker image of backend to dockerhub. Spins up K8s cluster using terraform and AWS.
     Runs pods and load balancer on AWS. 
-    Backend with /url which returns a json string
+    Backend has a get request of /url which returns a json string with the current time.
 
 # How to run locally with docker compose
 docker-compose --build up. Yes that's it :)
