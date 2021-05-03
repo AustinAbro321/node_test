@@ -5,7 +5,10 @@ If run from docker-compose:
     Front end which gives a simple greeting and allows users to post greeting
     Backend which recieves and creates greeting from APIs, also /url returns a json.   
     Entire build is automatically tested
-If run from kubernetes using workflow:
+If run from kubernetes using github actions:    
+    Automated deployment on commit to main with github actions
+    Pushes docker image of backend to dockerhub. Spins up K8s cluster using terraform and AWS
+    Runs pods and load balancer on AWS. 
     Backend with /url which returns a json string
 
 # How to run locally with docker compose
