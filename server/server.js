@@ -7,7 +7,7 @@ app.use(cors())
 app.use(express.json())
 
 app.get("/url",(req,res,next) => {
-    res.json({"message":"Automate all the things!","timestamp":Math.floor(Date.now() / 1000)});
+    res.json({"message":"Automate everything!","timestamp":Math.floor(Date.now() / 1000)});
 });
 
 app.post("/newGreeting", async (req,res) =>{
