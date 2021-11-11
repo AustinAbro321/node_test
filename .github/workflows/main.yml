@@ -88,5 +88,6 @@ jobs:
         run: |        
           kubectl apply -f $K8S_YAML_DIR/svc-load-balancer.yml
           kubectl apply -f $K8S_YAML_DIR/deploy.yml
+          kubectl rollout restart deployment greeting
           kubectl get services -o wide
           kubectl get pods    
