@@ -10,4 +10,4 @@ jobs:
     - name: docker build nodejs
       id: build-node
       run: |
-        docker build ./server -t austinabro321/node_greeting:latest
+        docker build ./server/dockerfile -t austinabro321/node_greeting:latest
