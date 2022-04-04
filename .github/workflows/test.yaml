@@ -7,7 +7,8 @@ jobs:
     name: "docker"
     runs-on: ubuntu-latest
     steps:
+    - uses: actions/checkout@v2
     - name: docker build nodejs
       id: build-node
       run: |
-        docker build ./server/dockerfile -t austinabro321/node_greeting:latest
+        docker build ./server/ -t austinabro321/node_greeting:latest
