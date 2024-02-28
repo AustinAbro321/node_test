@@ -14,6 +14,7 @@ jobs:
         df -h
         echo "in tool cache"
         du -sh $RUNNER_TOOL_CACHE
+        df -h
     # - name: docker build nodejs
     #   id: build-node
     #   run: |
