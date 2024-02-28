@@ -14,6 +14,10 @@ jobs:
         df -h
         echo "in tool cache"
         du -sh $RUNNER_TOOL_CACHE
+        sudo rm -rf /usr/share/dotnet
+        sudo rm -rf /opt/ghc
+        sudo rm -rf "/usr/local/share/boost"
+        sudo rm -rf "$RUNNER_TOOL_CACHE"        
         df -h
     # - name: docker build nodejs
     #   id: build-node
