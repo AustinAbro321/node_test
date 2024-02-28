@@ -7,8 +7,14 @@ jobs:
     name: "docker"
     runs-on: [self-hosted, linux]
     steps:
-    - uses: actions/checkout@v2
-    - name: docker build nodejs
-      id: build-node
+    # - uses: actions/checkout@v2
+    - name: check size
       run: |
-        docker build ./server/ -t austinabro321/node_greeting:latest
+        echo "total"
+        df -h
+        echo "in tool cache"
+        du -sh $RUNNER_TOOL_CACHE
+    # - name: docker build nodejs
+    #   id: build-node
+    #   run: |
+    #     docker build ./server/ -t austinabro321/node_greeting:latest
